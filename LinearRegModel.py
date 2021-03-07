@@ -51,4 +51,11 @@ predictions = AirQualMod.predict(x_test) # Test model
 percentage_change = [0] * len(predictions) # Create vector to show % diff between predicted T and actual T
 for x in range(len(predictions)): # Print output for all predictions 
     percentage_change[x] = ((predictions[x]-y_test[x])/y_test[x])*100
-    print(np.round(predictions[x]),np.round(y_test[x]),percentage_change[x],x_test[x])
+    print(np.round(predictions[x], decimals=1),np.round(y_test[x], decimals=4),np.round(percentage_change[x], decimals=1),np.round(x_test[x], decimals=1))
+
+output = pd.DataFrame(x_test) # Port test data into a new dataframe
+output.columns = [extracted.drop([predict], 1)] # Add headers
+
+output[predict] = y_test # Add reference temperature data for testing into new dataframe
+output['Predicted'] = np.round(predictions,decimals = 1) # Add predictions to new dataframe
+output['% Change'] = np.round(percentage_change,decimals = 1) # Add % Change
