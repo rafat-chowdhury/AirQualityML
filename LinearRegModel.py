@@ -1,5 +1,6 @@
 import pandas as pd 
 import numpy as np 
+import os
 import sklearn
 import pickle
 from sklearn import linear_model
@@ -59,3 +60,10 @@ output.columns = [extracted.drop([predict], 1)] # Add headers
 output[predict] = y_test # Add reference temperature data for testing into new dataframe
 output['Predicted'] = np.round(predictions,decimals = 1) # Add predictions to new dataframe
 output['% Change'] = np.round(percentage_change,decimals = 1) # Add % Change
+
+print(output.head) # Show output table
+path = os.getcwd() 
+filename = '/AirQuality_processed.csv'
+filepath = path + filename # Create file path to save .csv to 
+
+output.to_csv(filepath , index = False) # Save output as a .csv file
