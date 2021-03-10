@@ -2,20 +2,16 @@
     close all;clear;clc % Prepare workspace and console
     
 %% Load data and export columns and headers as variables
-    Tbl = readtable('AirQuality_Processed.csv'); % Read in csv output
-    [Measurements NCol] = size(Tbl); % Define size of Tbl variable 
+    [Tbl, headers, Measurements, NCol] = ReadInCSVExtractColumns;
 
-% Export columns and headers as variables
-    for m = 1:NCol
-        temp = Tbl.Properties.VariableNames{1,m};
-        assignin('base',temp,Tbl{:,m});   
-    end
-
-% Remove null values from dataset
-    % Prep null values
-    T_prep = T;
-    P_prep = Predicted;
-    
+    % Identify original data and predicted 
+    % We assume these are the last two columns in the csv
+    temp = headers{1,end};
+    T_prep = temp(2:end-1);
+    temp = headers{1,end-1};
+    P_prep = temp(2:end-1);
+  
+  % Remove null values from dataset  
     nullval = -200;
     for nv = 1:Measurements
         if T(nv) == -200
