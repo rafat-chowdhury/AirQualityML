@@ -4,14 +4,11 @@
 %% Load data and export columns and headers as variables
     [Tbl, headers, Measurements, NCol] = ReadInCSVExtractColumns;
 
-    % Identify original data and predicted 
-    % We assume these are the last two columns in the csv
-    temp = headers{1,end};
-    T_prep = temp(2:end-1);
-    temp = headers{1,end-1};
-    P_prep = temp(2:end-1);
-  
-  % Remove null values from dataset  
+ %% Identify modeled parameter and predicted counterpart
+    P_prep = Predicted;
+    T_prep = T;
+    
+%% Remove null values from dataset
     nullval = -200;
     for nv = 1:Measurements
         if T(nv) == -200
