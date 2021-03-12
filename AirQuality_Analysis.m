@@ -61,19 +61,5 @@
             title('Sample distributions')
             set(gcf,'color','w')     
 
-%% Calculate Normalised RMSE 
-T_norm = T_prep./max(T_prep); % Normalise T_prep
-Predicted_norm = P_prep./max(P_prep); % Normalise P_prep
-e = (Predicted_norm - T_norm); % Define error
-se = e.^2; % Define squared error
-mse = (sum(se)./length(se)); % Define mean squared error
-rmse = sqrt(mse) *100; % Calculate RMSE as a percentage
-
-%% R-squared calculation
-residue = (T - Predicted); % Calculate residue 
-SSresidue = sum(residue.^2); % Calculae SoS of residue
-SStotal = (length(T) - 1) * var(T); 
-rsq = 1 - SSresidue/SStotal % Calculate R-squared value
-
-%% t-test analysis
-[h p] = ttest2(T,Predicted);
+%% Perform stats
+[rmse, rsq, ttest] = LinRegStats(T_prep,P_prep)
