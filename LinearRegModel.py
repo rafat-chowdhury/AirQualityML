@@ -67,3 +67,9 @@ filename = '/AirQuality_processed.csv'
 filepath = path + filename # Create file path to save .csv to 
 
 output.to_csv(filepath , index = False) # Save output as a .csv file
+
+SS = output.describe()
+filename = '/AirQuality_processed_SS.csv'
+filepath = path + filename # Create file path to save .csv to 
+
+SS.to_csv(filepath , index = False) # Save output as a .csv file
