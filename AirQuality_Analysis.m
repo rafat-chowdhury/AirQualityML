@@ -63,3 +63,13 @@
             set(gca,'Fontsize',14,'linewidth',3)
             title('Sample distributions')
             set(gcf,'color','w')     
+
+%% Output data
+    result = {}
+    result.data.predicted = P
+    result.data.original = Orig
+    result.stats.rmse = rmse
+    result.stats.rsquared = rsq
+    result.stats.ttest.h = ttest.h
+    result.stats.ttest.p = ttest.p
+    clearvars -EXCEPT result
