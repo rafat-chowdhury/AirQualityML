@@ -5,18 +5,21 @@
     [Tbl, headers, Measurements, NCol] = ReadInCSVExtractColumns;
 
  %% Identify modeled parameter and predicted counterpart
-    P_prep = Predicted;
-    T_prep = T;
+    P = Predicted;
+    Orig = T;
     
 %% Remove null values from dataset
     nullval = -200;
     for nv = 1:Measurements
         if T(nv) == -200
-            T_prep(nv) = 0;
-            P_prep(nv) = 0;
+            Orig(nv) = 0;
+            P(nv) = 0;
         end
     end
-            
+
+ %% Perform stats
+[rmse, rsq, ttest] = LinRegStats(Orig,P)
+
 %% Visualise data
     % Define parameters for figure
     linwid = 5;
@@ -27,8 +30,8 @@
     xlim_range_hist = [-10 45];
     
     % Combine datasets for boxplots
-    tempvar2(:,1) = T_prep;
-    tempvar2(:,2) = P_prep;
+    tempvar2(:,1) = Orig;
+    tempvar2(:,2) = P;
     
     % Produce graphs
     figure(101)
@@ -60,6 +63,3 @@
             set(gca,'Fontsize',14,'linewidth',3)
             title('Sample distributions')
             set(gcf,'color','w')     
-
-%% Perform stats
-[rmse, rsq, ttest] = LinRegStats(T_prep,P_prep)
