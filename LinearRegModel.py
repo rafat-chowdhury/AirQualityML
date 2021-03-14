@@ -19,30 +19,8 @@ orig_data = np.array(extracted[predict])
 
 test_vol = 0.1 # Define volume of data to to train model on # Large clean dataset can go with > test size
 
-AirQualMod = linear_model.LinearRegression() # Define model type
-
 # Uncomment the following section: Lines 24-27 once model accuracy has been optimised
-# labels_train, labels_test, orig_data_train, orig_ddata_test = sklearn.model_selection.train_test_split(labels,orig_data,test_size = test_vol) # Split dataset 
-# AirQualMod.fit(labels_train,orig_data_train) # Load data into model for training
-# acc = AirQualMod.score(labels_test,orig_data_test) # Define model accuracy as measure of predictive efficiency 
-# print(acc) # Return accuracy value
-
-# Comment the following section: Lines 30-44 once model accuracy has been optimised
-best = 0 # Needed to optimise model
-test_runs = 100 # Define number of test runs
-
-for _ in range(test_runs):
-    labels_train, labels_test, orig_data_train, orig_data_test = sklearn.model_selection.train_test_split(labels,orig_data,test_size = test_vol) # Split dataset into training and test
-
-    AirQualMod.fit(labels_train,orig_data_train) # Load data into model for training
-    acc = AirQualMod.score(labels_test,orig_data_test) # Define model accuracy as measure of predictive efficiency 
-    print(acc) # Return accuracy value
-
-    if acc > best: # Store model via pickle if the accuracy is better than previous iterations
-        best = acc
-        with open("AirQualityModel.pickle","wb") as temp:
-            pickle.dump(AirQualMod,temp)
-    print(best)
+labels_train, labels_test, orig_data_train, orig_data_test = sklearn.model_selection.train_test_split(labels,orig_data,test_size = test_vol) # Split dataset 
 
 AirQualMod_in = open("AirQualityModel.pickle","rb") # Load in model with best accuracy
 AirQualMod = pickle.load(AirQualMod_in) 
